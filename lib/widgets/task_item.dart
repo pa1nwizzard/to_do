@@ -12,16 +12,23 @@ class TaskItem extends StatelessWidget {
     final provider = context.watch<TaskProvider>();
     final task = provider.tasks[index];
     return ListTile(
-      subtitle: Text(task.title),
-      title: ElevatedButton(
+      leading: Checkbox(
+        activeColor: Colors.greenAccent,
+        checkColor: Colors.black,
+        value: task.isDone,
+        onChanged: (_) => provider.toggleTask(index)
+      ),
+      title: Text(
+        task.title,
+        style: TextStyle(
+          color: Colors.white
+        ),
+      ),
+      trailing: IconButton(
         onPressed: () {
           provider.deleteTask(index);
         },
-        child: Text(''),
-      ),
-      trailing: Checkbox(
-        value: task.isDone,
-        onChanged: (_) => provider.toggleTask(index)
+        icon: Icon(Icons.delete),
       ),
     );
   }
